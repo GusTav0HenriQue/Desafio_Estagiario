@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Service.Profile
+namespace Service.Services
 {
-    internal class ElencoProfile
+    public class AvaliacaoService
     {
     }
 }

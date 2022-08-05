@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dominio.DTOs.FilmesDto
+namespace Dominio.DTOs.FilmesDtos
 {
     public class ReadFilmeElencoDto
     {
