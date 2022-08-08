@@ -33,6 +33,8 @@ namespace Data.Mapping
 
             builder.HasMany(e => e.Filmes).WithMany(e => e.Atores);
 
+            builder.Property(e=>e.Ativo).HasDefaultValue(false).IsRequired();
+
 
         }
     }
