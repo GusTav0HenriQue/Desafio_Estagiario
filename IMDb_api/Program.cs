@@ -1,7 +1,7 @@
 ﻿
 using Data;
 using Microsoft.EntityFrameworkCore;
-using Service.Profiles;
+using Dominio.Profiles;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.

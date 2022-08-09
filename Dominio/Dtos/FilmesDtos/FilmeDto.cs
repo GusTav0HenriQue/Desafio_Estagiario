@@ -16,7 +16,7 @@ namespace Dominio.DTOs.FilmesDtos
         public string Genero { get; set; }
         public int Duracao { get; set; }
         public int AvaliacaoTotal { get; set; }
-        public int TotalDeVotos { get; set; }
+        public int UsuariosVotantes { get; set; }
         public DateTime DataDeLancamento { get; set; }
         public virtual List<ElencoDto> Atores { get; set; }
         public virtual List<ResponseAvaliacaoDto> Votos { get; set; }

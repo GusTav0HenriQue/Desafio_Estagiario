@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Dominio.DTOs.FilmesDtos
 {
-    public class ReadFilmeDto
+    public class ReadFilmelDto
     {
         public int Id { get; set; }
         public string Titulo { get; set; }
