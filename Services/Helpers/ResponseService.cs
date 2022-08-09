@@ -2,7 +2,7 @@
 {
     public class ResponseService
     {
-        public HttpResponseMessage Stautus { get; set; }
+        public HttpResponseMessage Status { get; set; }
         public bool Sucesso { get; set; }
         public string Mensagem { get; set; }
 

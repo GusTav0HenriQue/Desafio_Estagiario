@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dominio.DTOs.AvaliacaoDtos
 {
-    public class ResgistraAvaliacaoDto
+    public class RegistraAvaliacaoDto
     {
         public int Avaliacao { get; set; }
     }
