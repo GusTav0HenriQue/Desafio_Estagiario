@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Dominio.DTOs.FilmesDtos;
+﻿using Dominio.DTOs.FilmesDtos;
 using FluentValidation;
 
-namespace Dominio.Validator.Filme
+namespace Service.Validator.Filme
 {
-    public class ReadFilmeValidator : AbstractValidator<ReadFilmelDto>
+    public class ReadFilmeValidator : AbstractValidator<ReadFilmeDto>
     {
         public ReadFilmeValidator()
         {

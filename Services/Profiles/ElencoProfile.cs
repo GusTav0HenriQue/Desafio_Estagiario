@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using Dominio.Config;
 using Dominio.DTOs.ElencoDtos;
+using Dominio.DTOs.FilmesDtos;
 using Dominio.Entities;
 
-namespace Dominio.Profiles
+namespace Service.Profiles
 {
     public class ElencoProfile : Profile
     {

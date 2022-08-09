@@ -3,7 +3,7 @@ using Dominio.DTOs.AvaliacaoDtos;
 using Dominio.DTOs.FilmesDtos;
 using Dominio.Entities;
 
-namespace Dominio.Profiles
+namespace Service.Profiles
 {
     public class AvaliacaoProfile : Profile
     {

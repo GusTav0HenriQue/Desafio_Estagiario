@@ -1,7 +1,7 @@
 ﻿using System.Net;
-using Dominio.Helpers;
+using Service.Helpers;
 
-namespace Dominio.Interfaces.Service
+namespace Service.Interfaces
 {
     public interface IService
     {
@@ -10,6 +10,5 @@ namespace Dominio.Interfaces.Service
 
         ResponseService GenereteServiceResponseSucess(HttpStatusCode status = HttpStatusCode.OK);
         ResponseService<T> GenereteServiceResponseSucess<T>(T value, HttpStatusCode status = HttpStatusCode.OK);
-
     }
 }

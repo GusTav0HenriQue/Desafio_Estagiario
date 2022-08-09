@@ -1,7 +1,7 @@
 ﻿using Dominio.DTOs.UserDtos;
-using Dominio.Helpers;
+using Service.Helpers;
 
-namespace Dominio.Interfaces.Service
+namespace Service.Interfaces
 {
     public interface IUserService : IService
     {

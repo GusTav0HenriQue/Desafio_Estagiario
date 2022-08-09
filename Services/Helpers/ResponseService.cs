@@ -1,5 +1,4 @@
-﻿
-namespace Dominio.Helpers
+﻿namespace Service.Helpers
 {
     public class ResponseService
     {

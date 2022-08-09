@@ -1,7 +1,7 @@
 ﻿using Dominio.DTOs.FilmesDtos;
 using FluentValidation;
 
-namespace Dominio.Validator.Filme
+namespace Service.Validator.Filme
 {
     public class UpdateFilmeValidator : AbstractValidator<UpdateFilmeDto>
     {

@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Dominio.DTOs.ElencoDtos;
-using Dominio.Helpers;
+﻿using Dominio.DTOs.ElencoDtos;
+using Service.Helpers;
 
-namespace Dominio.Interfaces.Service
+namespace Service.Interfaces
 {
     public interface IElencoService : IService
     {
