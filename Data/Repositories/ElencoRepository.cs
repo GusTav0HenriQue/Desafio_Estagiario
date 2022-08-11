@@ -22,7 +22,7 @@ namespace Data.Repositories
 
         public async Task<Elenco?> GetAtorFilmes(string nome, CancellationToken cancellationToken)
         {
-           return await _dbset.Include(e => e.Filmes).FirstOrDefaultAsync(e => e.Nome == nome);
+           return await _dbset.Include(e => e.Filmes).FirstOrDefaultAsync(e => e.Nome == nome, cancellationToken);
         }
 
         public IEnumerable<Elenco> GetByDiretor(string diretor)
@@ -32,7 +32,7 @@ namespace Data.Repositories
 
         public async Task<Elenco?> GetElencoByName(string nome,CancellationToken cancellationToken)
         {
-            return await _dbset.AsNoTracking().FirstOrDefaultAsync(e => e.Nome.ToLower() == nome.ToLower());
+            return await _dbset.AsNoTracking().FirstOrDefaultAsync(e => e.Nome.ToLower() == nome.ToLower(),cancellationToken);
         }
 
         public IEnumerable<Elenco> GetFilmesComAtor(string nome)

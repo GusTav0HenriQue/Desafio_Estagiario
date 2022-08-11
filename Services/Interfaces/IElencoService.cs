@@ -6,7 +6,7 @@ namespace Service.Interfaces
     public interface IElencoService : IService
     {
         Task<ResponseService> CadastrarElenco(CadastrarElencoDto cadastrarElencoDto, CancellationToken cancellationToken);
-        Task<ResponseService> UpdateElenco(UpdateElencoDto updateElencoDto, CancellationToken cancellationToken);
-        Task<ResponseService<IEnumerable<ReadElencoDto>>> GetAllElenco(CancellationToken cancellationToken);
+        Task<ResponseService> UpdateElenco(int id,UpdateElencoDto updateElencoDto, CancellationToken cancellationToken);
+        Task<ResponseService> Delete(int id, CancellationToken cancellationToken);
     }
 }

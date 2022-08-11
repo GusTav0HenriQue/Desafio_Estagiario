@@ -40,7 +40,7 @@ namespace Dominio.Entities
 
         public override bool Equals(object? obj)
         {
-            if(obj is Filme filme)
+            if (obj is Filme filme)
             {
                 filme = (Filme)obj;
                 if(Titulo== filme.Titulo)

@@ -14,7 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Itens de Solução", "Itens
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{16958C00-A734-44C0-9367-8BF1D62F37CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "Services\Service.csproj", "{16958C00-A734-44C0-9367-8BF1D62F37CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -21,29 +21,29 @@ namespace Data.Repositories
         }
         public async Task<T> Add(T entity, CancellationToken cancellationToken)
         {
-              var entityT = await _dbSet.AddAsync(entity);
+              var entityT = await _dbSet.AddAsync(entity, cancellationToken);
             return entityT.Entity;
         }
 
         public async Task Delete(T entity, CancellationToken cancellationToken)
         {
             entity.Ativo = false;
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellationToken);
         }
 
-        public  IEnumerable<T> GetAll()
+        public  IQueryable<T> GetAll()
         {
             return  _dbSet.Where(x => x.Ativo);
         }
 
-        public  IEnumerable<T> GetAll(Expression<Func<T, bool>> query)
+        public  IQueryable<T> GetAll(Expression<Func<T, bool>> query)
         {
             return _dbSet.Where(query).AsQueryable().Where(x => x.Ativo);
         }
 
         public async Task<T?> GetById(int id, CancellationToken cancellationToken) => await _dbSet.FirstOrDefaultAsync(x => x.Id == id && x.Ativo, cancellationToken);
 
-        public async Task<int> SavaChanges(CancellationToken cancellationToken) => await _context.SaveChangesAsync();
+        public async Task<int> SavaChanges(CancellationToken cancellationToken) => await _context.SaveChangesAsync(cancellationToken);
 
         public T Update(T entity)
         {
