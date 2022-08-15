@@ -1,12 +1,7 @@
 ﻿using Dominio.Entities;
 using Dominio.Interfaces.Data;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Data.Repositories
 {
@@ -43,7 +38,7 @@ namespace Data.Repositories
 
         public async Task<T?> GetById(int id, CancellationToken cancellationToken) => await _dbSet.FirstOrDefaultAsync(x => x.Id == id && x.Ativo, cancellationToken);
 
-        public async Task<int> SavaChanges(CancellationToken cancellationToken) => await _context.SaveChangesAsync(cancellationToken);
+        public async Task<int> SaveChanges(CancellationToken cancellationToken) => await _context.SaveChangesAsync(cancellationToken);
 
         public T Update(T entity)
         {

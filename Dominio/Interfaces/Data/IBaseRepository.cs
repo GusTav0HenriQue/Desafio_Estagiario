@@ -1,10 +1,6 @@
 ﻿using Dominio.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Dominio.Interfaces.Data
 {
@@ -16,7 +12,7 @@ namespace Dominio.Interfaces.Data
         Task<T> Add(T entity, CancellationToken cancellationToken);
         T Update(T entity);
         Task Delete(T entity, CancellationToken cancellationToken);
-        Task<int> SavaChanges(CancellationToken cancellationToken);
+        Task<int> SaveChanges(CancellationToken cancellationToken);
 
     }
 }

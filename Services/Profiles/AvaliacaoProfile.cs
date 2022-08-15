@@ -9,7 +9,7 @@ namespace Service.Profiles
     {
         public AvaliacaoProfile()
         {
-            CreateMap<RgistraAvaliaçaoFilmeDto, Avaliacao>().ForMember(destMember => destMember.FilmeId,
+            CreateMap<RegistraAvaliaçaoFilmeDto, Avaliacao>().ForMember(destMember => destMember.FilmeId,
                 opt => opt.MapFrom(srcMember => srcMember.FilmeId))
                 .ForMember(destMember => destMember.UserId, opt => opt.MapFrom(srcMember => srcMember.UserId)).ReverseMap();
 

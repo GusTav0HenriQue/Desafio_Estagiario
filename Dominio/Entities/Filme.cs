@@ -24,7 +24,7 @@ namespace Dominio.Entities
         public virtual IEnumerable<Avaliacao> Votos { get; set; }
 
 
-        public  void AddAvaliacao(int pontuacao)
+        public void AdicionarAvaliacao(int pontuacao)
         {
             UsuariosVotantes++;
             AvaliacaoTotal += pontuacao;

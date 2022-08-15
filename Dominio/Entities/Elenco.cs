@@ -11,7 +11,7 @@ namespace Dominio.Entities
     {
         public string Nome { get; set; }
         public DateTime DataDeNascimento { get; set; }
-        public virtual ElencoPapel Papel { get; set; }
+        public ElencoPapel Papel { get; set; }
 
         public virtual ICollection<Filme> Filmes { get; set; }
         public void AttNome(string nome) => Nome = nome;

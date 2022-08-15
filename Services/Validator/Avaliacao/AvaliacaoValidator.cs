@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Service.Validator.Avaliacao
 {
-    public class AvaliacaoValidator : AbstractValidator<RgistraAvaliaçaoFilmeDto>
+    public class AvaliacaoValidator : AbstractValidator<RegistraAvaliaçaoFilmeDto>
     {
         public AvaliacaoValidator()
         {

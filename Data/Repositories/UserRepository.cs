@@ -21,7 +21,7 @@ namespace Data.Repositories
 
         public async Task<User?> GetUserByEmail(string email, CancellationToken cancellationToken)
         {
-             return await _dbSet.Where(u => u.Email == email).AsNoTracking().FirstOrDefaultAsync();
+             return await _dbSet.Where(u => u.Email == email).AsNoTracking().FirstOrDefaultAsync(cancellationToken);
         }
 
         public IEnumerable<User> GetUserByOrder()
@@ -34,7 +34,7 @@ namespace Data.Repositories
             return await _dbSet.AsNoTracking()
                                .Where(u => u.Ativo == false)
                                .Where(u => u.CargoDoUsuario == UserCargo.Usuario)
-                               .FirstOrDefaultAsync();
+                               .FirstOrDefaultAsync(cancellationToken);
         }
     }
 }

@@ -36,7 +36,7 @@ namespace Data.Repositories
 
         public async Task<Filme?> GetFilmePorAtor(int id, CancellationToken cancellationToken)
         {
-            return await _dbSet.Include(f => f.Atores).FirstOrDefaultAsync(f => f.Id == id);
+            return await _dbSet.Include(f => f.Atores).FirstOrDefaultAsync(f => f.Id == id, cancellationToken);
         }
 
         public IEnumerable<Filme> GetFilmesFiltro()

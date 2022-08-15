@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Dominio.DTOs.UserDtos;
-using Dominio.Entities;
 using Dominio.Interfaces.Data;
 using Service.Helpers;
 using Service.Interfaces;

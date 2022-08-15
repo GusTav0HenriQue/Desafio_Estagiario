@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dominio.DTOs.FilmesDtos
 {
-    public class RgistraAvaliaçaoFilmeDto
+    public class RegistraAvaliaçaoFilmeDto
     {
         public int UserId { get; set; }
         public int FilmeId { get; set; }

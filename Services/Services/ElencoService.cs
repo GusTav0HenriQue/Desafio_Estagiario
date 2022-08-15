@@ -35,7 +35,7 @@ namespace Service.Services
                 }, cancellationToken);
                 return GenereteServiceResponseSucess("O Artista foi Cadastrado com sucesso.");
             }
-            await _eRepository.SavaChanges(cancellationToken);
+            await _eRepository.SaveChanges(cancellationToken);
 
             return GenereteErroServiceResponse("O Artista ja foi cadastrado.");
 
