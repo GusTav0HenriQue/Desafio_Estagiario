@@ -96,7 +96,7 @@ namespace Service.Services
         public async Task<ResponseService<IEnumerable<FilmeDto>>> GetFilmeByFiltros(CancellationToken cancellation)
         {
             var filmes = _fRepository.GetFilmesFiltro();
-            if (!filmes.Any())
+            if (filmes.Any())
                 return GenerateErroServiceResponse<IEnumerable<FilmeDto>>("Filmes não encontrados", HttpStatusCode.NotFound);
             var mapperFilme = _mapper.Map<IEnumerable<FilmeDto>>(filmes);
 

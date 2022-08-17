@@ -43,7 +43,7 @@ namespace Dominio.Entities
             if (obj is Filme filme)
             {
                 filme = (Filme)obj;
-                if(Titulo== filme.Titulo)
+                if(Titulo == filme.Titulo)
                 {
                     return true;
                 }
