@@ -1,0 +1,77 @@
+* [33mcommit cb69623c033939ffe8a6cb669ba66ce4648ad58a[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+[31m|[m Author: Gustavo <gustavo.henriqe@protechsolutions.com.br>
+[31m|[m Date:   Wed Aug 17 13:35:52 2022 -0300
+[31m|[m 
+[31m|[m     Add Denpendencias
+[31m|[m 
+* [33mcommit ada31083262e666348b85c45e009ccaa685a6ac8[m
+[31m|[m Author: Gustavo <gustavo.henriqe@protechsolutions.com.br>
+[31m|[m Date:   Mon Aug 15 13:22:55 2022 -0300
+[31m|[m 
+[31m|[m     add metodos service
+[31m|[m 
+* [33mcommit 7d62251e0421a25bb8ba168b318c26ee0d08141f[m
+[31m|[m Author: Gustavo <gustavo.henriqe@protechsolutions.com.br>
+[31m|[m Date:   Thu Aug 11 13:49:50 2022 -0300
+[31m|[m 
+[31m|[m     Add Services classes
+[31m|[m 
+* [33mcommit d084af8699cbf45e9ed971951d7ba2316f6d2497[m
+[31m|[m Author: Gustavo <gustavo.henriqe@protechsolutions.com.br>
+[31m|[m Date:   Tue Aug 9 13:54:50 2022 -0300
+[31m|[m 
+[31m|[m     Add Validações
+[31m|[m 
+* [33mcommit 881c9ad5be832fda59869f1dfe78f4f1bf865895[m
+[31m|[m Author: Gustavo <gustavo.henriqe@protechsolutions.com.br>
+[31m|[m Date:   Tue Aug 9 12:40:19 2022 -0300
+[31m|[m 
+[31m|[m     Deletando pasta
+[31m|[m 
+* [33mcommit 1a3a03918076e1115c432a68fbd027333beecc33[m
+[31m|[m Author: Gustavo <gustavo.henriqe@protechsolutions.com.br>
+[31m|[m Date:   Tue Aug 9 12:37:18 2022 -0300
+[31m|[m 
+[31m|[m     a
+[31m|[m 
+* [33mcommit 5e13d944c8ecb020419b0da8f4a5f11a11fdb71c[m
+[31m|[m Author: Gustavo <gustavo.henriqe@protechsolutions.com.br>
+[31m|[m Date:   Tue Aug 9 12:32:09 2022 -0300
+[31m|[m 
+[31m|[m     Removendo pasta services
+[31m|[m 
+* [33mcommit 1ed69befd6dbffa4a98c2277a47c136351b29554[m
+[31m|[m Author: Gustavo <gustavo.henriqe@protechsolutions.com.br>
+[31m|[m Date:   Tue Aug 9 12:29:52 2022 -0300
+[31m|[m 
+[31m|[m     Consertado
+[31m|[m 
+* [33mcommit 812bee20713da13a1dd5da2ff5c96eea987fe70c[m
+[31m|[m Author: Gustavo <gustavo.henriqe@protechsolutions.com.br>
+[31m|[m Date:   Tue Aug 9 11:52:50 2022 -0300
+[31m|[m 
+[31m|[m     Consertando erros
+[31m|[m 
+* [33mcommit 17d8040edf3b7a31f80ccac2dac6f917135ea9f5[m
+[31m|[m Author: Gustavo <gustavo.henriqe@protechsolutions.com.br>
+[31m|[m Date:   Mon Aug 8 12:27:53 2022 -0300
+[31m|[m 
+[31m|[m     Refazendo Migration
+[31m|[m 
+* [33mcommit 2a35626c3f07c0072c888c1d1cb4d709bcb37acb[m
+[31m|[m Author: Gustavo <gustavo.henriqe@protechsolutions.com.br>
+[31m|[m Date:   Fri Aug 5 13:38:42 2022 -0300
+[31m|[m 
+[31m|[m     Add Profiles
+[31m|[m 
+* [33mcommit 59e625387fbfc08d47362236aa6e45a457fa3569[m
+[31m|[m Author: Gustavo <gustavo.henriqe@protechsolutions.com.br>
+[31m|[m Date:   Fri Aug 5 11:18:01 2022 -0300
+[31m|[m 
+[31m|[m     Add projeto
+[31m|[m 
+* [33mcommit b74175753690aa3ccce0f8b21fe0cbf38b6cecb5[m
+  Author: Gustavo <gustavo.henriqe@protechsolutions.com.br>
+  Date:   Fri Aug 5 11:12:34 2022 -0300
+  
+      Add gitignore

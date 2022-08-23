@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220808144232_Initial")]
+    [Migration("20220819160950_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -147,11 +147,13 @@ namespace Data.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("varchar");
+                        .HasMaxLength(180)
+                        .HasColumnType("varchar(180)");
 
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasColumnType("varchar");
+                        .HasMaxLength(80)
+                        .HasColumnType("varchar(80)");
 
                     b.Property<string>("PassWord")
                         .IsRequired()
@@ -160,6 +162,17 @@ namespace Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("User", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Ativo = true,
+                            CargoDoUsuario = 1,
+                            Email = "Admin",
+                            Nome = "Adm",
+                            PassWord = "D4584547C7F6A01A40BB8D863AB2C134E0C51CE353C0CA2FD93857961D750658"
+                        });
                 });
 
             modelBuilder.Entity("ElencoFilme", b =>

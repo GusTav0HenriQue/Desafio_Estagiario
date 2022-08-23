@@ -2,7 +2,7 @@
 using System.Text;
 using Dominio.Interfaces.Cryptograph;
 
-namespace Service.Utils.Cripitografia
+namespace Dominio.Utils.Cryptografia
 {
     public class Cryptograph : ICryptograph
     {
@@ -21,23 +21,23 @@ namespace Service.Utils.Cripitografia
             var sBuilder = new StringBuilder();
             foreach (var caracter in passWordEncrypted)
             {
-                sBuilder.Append(caracter.ToString("X3"));
+                sBuilder.Append(caracter.ToString("X2"));
             }
             return sBuilder.ToString();
-        } 
+        }
 
         public bool VerifyPassword(string password, string encryptedpassword)
         {
             var senhaEncrypted = _algorithm.ComputeHash(Encoding.UTF8.GetBytes(password));
 
             var sBuilder = new StringBuilder();
-            
-            foreach(var caracter in senhaEncrypted)
+
+            foreach (var caracter in senhaEncrypted)
             {
-                sBuilder.Append(caracter.ToString("X3"));
+                sBuilder.Append(caracter.ToString("X2"));
             }
             return sBuilder.ToString() == encryptedpassword;
-   
+
         }
     }
 }

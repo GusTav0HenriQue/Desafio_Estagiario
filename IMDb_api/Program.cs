@@ -1,12 +1,28 @@
 ﻿using System.Text;
 using Data;
+using Dominio.DTOs.FilmesDtos;
+using Dominio.Entities;
 using FluentValidation.AspNetCore;
+using IMDb_api.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OData.Edm;
+using Microsoft.OData.ModelBuilder;
 using Service.Profiles;
 
 var builder = WebApplication.CreateBuilder(args);
+
+static IEdmModel GetEdmModel()
+{
+    ODataConventionModelBuilder builder = new();
+    builder.EntityType<Filme>();
+    builder.EntitySet<FilmeDto>("FilmeDto");
+    builder.EntityType<FilmeDto>().HasKey(x => x.Id);
+    return builder.GetEdmModel();
+}
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -16,6 +32,10 @@ builder.Services.AddAutoMapper(typeof(UserProfile), typeof(FilmeProfile), typeof
 builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("DbConnection")));
 
 builder.Services.AddFluentValidation(s => { s.RegisterValidatorsFromAssemblyContaining<Program>(); s.DisableDataAnnotationsValidation = false; });
+
+builder.Services.AddControllers().AddOData(opt => opt.AddRouteComponents("v1", GetEdmModel()).Filter().Select().Expand()); 
+
+builder.Services.AddServices();
 
 
 var JWt_KEY = builder.Configuration.GetValue<string>("Criptograph:SecretKey");
@@ -36,8 +56,7 @@ builder.Services.AddAuthentication(x =>
     };
 });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddCustomSwaggerGen();
 
 var app = builder.Build();
 
@@ -51,6 +70,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseAuthentication();
 
 app.MapControllers();
 

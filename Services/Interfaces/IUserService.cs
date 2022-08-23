@@ -9,7 +9,7 @@ namespace Service.Interfaces
         Task<ResponseService> CreateAdm(CreateUserDto createUser, CancellationToken cancellation);
         Task<ResponseService> UpdateUser(int id, CreateUserDto updateUser, CancellationToken cancellation);
         Task<ResponseService> DeleteUser(int id, string email, CancellationToken cancellation);
-        Task<ResponseService<IEnumerable<ReadUserDto>>> GetAllUsers(CancellationToken cancellation);
+        ResponseService<IEnumerable<ReadUserDto>> GetAllUsers(CancellationToken cancellation);
         Task<ResponseService<LoginOutPutUserDto>> Login(LoginUserDto login, CancellationToken cancellation);
     }
 }

@@ -16,11 +16,14 @@ namespace Data.Mapping
 
             builder.Property(u => u.Nome)
                    .IsRequired()
-                   .HasColumnType("varchar");
+                   .HasColumnType("varchar")
+                   .HasMaxLength(80);
+
 
             builder.Property(u => u.Email)
                    .IsRequired()
-                   .HasColumnType("varchar");
+                   .HasColumnType("varchar")
+                   .HasMaxLength(180);
 
 
             builder.Property(u => u.PassWord)

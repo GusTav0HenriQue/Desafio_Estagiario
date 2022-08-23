@@ -75,7 +75,7 @@ namespace Service.Services
             return GenereteServiceResponseSucess(filmedeletado);
         }
 
-        public async Task<ResponseService<IEnumerable<ReadFilmeDto>>> GetAllFilmes(CancellationToken cancellation)
+        public ResponseService<IEnumerable<ReadFilmeDto>> GetAllFilmes(CancellationToken cancellation)
         {
             var filme = _fRepository.GetAllFilmesComAtor();
             if (!filme.Any())

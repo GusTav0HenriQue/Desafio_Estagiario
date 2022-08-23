@@ -61,7 +61,7 @@ namespace Service.Services
             if (!RealizarValidacao(new UserValidator(), createUser))
                 return GenereteErroServiceResponse(GetNotifcacao().First());
 
-            var userEmail = _uRepository.GetUserByEmail(createUser.Email, cancellation);
+            var userEmail = await _uRepository.GetUserByEmail(createUser.Email, cancellation);
             if (userEmail != null)
                 return GenereteErroServiceResponse("Esse email já esta em uso.");
             if (createUser.Password != createUser.RePassword)
@@ -83,12 +83,12 @@ namespace Service.Services
         {
             var user = await _uRepository.GetById(id, cancellation);
 
-            if (!user.Ativo)
+            if (user == null)
                 return GenereteErroServiceResponse("Usuario ja foi excluido");
             if (user.Email != email)
                 return GenereteErroServiceResponse("Email não encontrado , Por favor insira um email valido. ");
-            if (user.CargoDoUsuario == UserCargo.Administrador && user.Ativo)
-                return GenereteErroServiceResponse("Não pode excuir um usuario Adm ativo.");
+            if (user.Nome == "Adm" && user.Email == "Admin" && user.CargoDoUsuario == UserCargo.Administrador )
+                return GenereteErroServiceResponse("Não pode excluir esse Adm.");
             await _uRepository.Delete(user, cancellation);
             await _uRepository.SaveChanges(cancellation);
 
@@ -96,9 +96,9 @@ namespace Service.Services
 
         }
 
-        public async Task<ResponseService<IEnumerable<ReadUserDto>>> GetAllUsers(CancellationToken cancellation)
+        public  ResponseService<IEnumerable<ReadUserDto>> GetAllUsers(CancellationToken cancellation)
         {
-            var user = _uRepository.GetAll();
+            var user =   _uRepository.GetAll();
             var map = _mapper.Map<IEnumerable<ReadUserDto>>(user);
             if (!user.Any())
                 return GenerateErroServiceResponse<IEnumerable<ReadUserDto>>("Nenhum usuario foi cadastrado");
@@ -111,7 +111,8 @@ namespace Service.Services
 
             if (userAth == null)
                 return GenerateErroServiceResponse<LoginOutPutUserDto>("Erro ao fazer login, Esse usuario não existe.");
-            if (userAth != null && _cryptograph.VerifyPassword(login.Password, userAth.Email))
+
+            if (userAth != null && _cryptograph.VerifyPassword(login.Password, userAth.PassWord))
             {
                 var createToken = await _token.GerarToken(userAth.Nome, userAth.Id, userAth.CargoDoUsuario.GetDescription());
 
@@ -122,7 +123,7 @@ namespace Service.Services
                     Email = userAth.Email
                 };
 
-                var result = new LoginOutPutUserDto() { Usurario = user, Token = createToken };
+                var result = new LoginOutPutUserDto() { Usuario = user, Token = createToken };
 
                 return GenereteServiceResponseSucess(result);
             }
