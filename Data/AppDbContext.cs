@@ -10,7 +10,7 @@ namespace Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> opt) : base(opt)
         {
-
+            ChangeTracker.LazyLoadingEnabled = false;
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

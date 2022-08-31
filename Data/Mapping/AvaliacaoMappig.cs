@@ -25,7 +25,7 @@ namespace Data.Mapping
                    .WithMany(a => a.Votos)
                    .HasForeignKey(a => a.FilmeId);
 
-            builder.Property(a => a.Ativo).HasDefaultValue(false).IsRequired();
+            builder.Property(a => a.Ativo).HasDefaultValue(true).IsRequired();
         }
     }
 }

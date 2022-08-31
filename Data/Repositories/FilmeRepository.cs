@@ -1,20 +1,17 @@
-﻿using Dominio.Entities;
+﻿using Dominio.DTOs.FilmesDtos;
+using Dominio.Entities;
 using Dominio.Interfaces.Data;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web.Http.OData.Query;
 
 namespace Data.Repositories
 {
     public class FilmeRepository : BaseRepository<Filme>, IFilmeRepository
     {
         private readonly DbSet<Filme> _dbSet;
-        public FilmeRepository(AppDbContext context): base(context)
+        public FilmeRepository(AppDbContext context) : base(context)
         {
-            _dbSet= context.Set<Filme>();
+            _dbSet = context.Set<Filme>();
         }
         public Task<Filme?> GetAllDetail(int id, CancellationToken cancellationToken) => GetById(id, cancellationToken);
 
@@ -26,12 +23,12 @@ namespace Data.Repositories
 
         public IEnumerable<Filme> GetFilmeByGenero(string genero)
         {
-            return GetAll(f=>f.Genero.ToLower() == genero.ToLower());
+            return GetAll(f => f.Genero.ToLower() == genero.ToLower());
         }
 
         public IEnumerable<Filme> GetFilmeByTitulo(string titulo)
         {
-            return  GetAll(f=>f.Titulo.ToLower() == titulo.ToLower());
+            return GetAll(f => f.Titulo.ToLower() == titulo.ToLower());
         }
 
         public async Task<Filme?> GetFilmePorAtor(int id, CancellationToken cancellationToken)
@@ -39,11 +36,30 @@ namespace Data.Repositories
             return await _dbSet.Include(f => f.Atores).FirstOrDefaultAsync(f => f.Id == id, cancellationToken);
         }
 
-        public IEnumerable<Filme> GetFilmesFiltro()
+        public IEnumerable<Filme> GetFilmesFiltro(ObterTodosFilmesDto obterTodosFilmesDto)
         {
-            return _dbSet.Include(f => f.Atores.Where(f => f.Ativo))
-                             .Include(f => f.Votos.Where(f => f.Ativo))
-                             .AsQueryable();
+            (string? Diretor, string? Genero, string? Ator, ObterTodosFilmesDto.TiposOrdenacao? TipoOrdenacao, bool? Decrescente) = obterTodosFilmesDto;
+
+            var filtros = new List<Func<Filme, bool>>();
+
+            if (Diretor is not null)
+                filtros.Add(filme => filme.Diretor.Contains(Diretor));
+            
+            if (Genero is not null)
+                filtros.Add(filme => filme.Genero.Contains(Genero));
+
+            if (Ator is not null)
+                filtros.Add(filme => filme.Atores.Any(a => a.Nome.Contains(Ator)));
+
+            var filmesFiltrados = filtros.Aggregate(_dbSet.Include(f=>f.Atores).Include(f=>f.Votos) as IEnumerable<Filme>, (currentSeed, filtro) => currentSeed.Where(filtro));
+
+            if (TipoOrdenacao is ObterTodosFilmesDto.TiposOrdenacao.Alfabetica)
+                filmesFiltrados = Decrescente is true ? filmesFiltrados.OrderByDescending(f => f.Titulo) : filmesFiltrados.OrderBy(f => f.Titulo);
+
+            if (TipoOrdenacao is ObterTodosFilmesDto.TiposOrdenacao.Avaliacao)
+                filmesFiltrados = Decrescente is true ? filmesFiltrados.OrderByDescending(f => f.AvaliacaoTotal) : filmesFiltrados.OrderBy(f => f.AvaliacaoTotal);
+
+            return filmesFiltrados;
         }
 
         public IEnumerable<Filme> GetFilmesPagiados(ParametroFilme filmesParametros)

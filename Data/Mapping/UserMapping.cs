@@ -32,6 +32,8 @@ namespace Data.Mapping
 
             builder.Property(u => u.CargoDoUsuario)
                    .IsRequired();
+
+            builder.Property(u => u.Ativo).HasDefaultValue(true);
         }
     }
 }

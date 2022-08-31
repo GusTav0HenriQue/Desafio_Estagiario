@@ -22,7 +22,7 @@ namespace Data.Repositories
 
         public async Task Delete(T entity, CancellationToken cancellationToken)
         {
-            entity.Ativo = false;
+            entity.Ativo = true;
             await _context.SaveChangesAsync(cancellationToken);
         }
 
