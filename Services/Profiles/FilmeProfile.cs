@@ -8,7 +8,7 @@ namespace Service.Profiles
     {
         public FilmeProfile()
         {
-            CreateMap<Filme, FilmeDto>().ReverseMap();
+            CreateMap<Filme, FilmeDto>().ForMember(destMenber=>destMenber.DataDeLancamento, opt=>opt.MapFrom(srcMenber=>srcMenber.DataDeLancamento.ToShortDateString())).ReverseMap();
 
             CreateMap<Filme, ReadDetailFilmeDto>().ReverseMap();
 

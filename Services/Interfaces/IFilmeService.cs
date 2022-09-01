@@ -1,4 +1,5 @@
 ﻿using Dominio.DTOs.FilmesDtos;
+using Dominio.Entities;
 using Service.Helpers;
 
 namespace Service.Interfaces
@@ -11,7 +12,7 @@ namespace Service.Interfaces
         Task<ResponseService> RegistrarAvaliacao(RegistraAvaliaçaoFilmeDto registraAvaliacao, CancellationToken cancellationToken);
         ResponseService<IEnumerable<ReadFilmeDto>> GetAllFilmes(CancellationToken cancellation);
         Task<ResponseService<ReadDetailFilmeDto>>GetFilmesDetail(int id, CancellationToken cancellation);
-        Task<ResponseService<IEnumerable<FilmeDto>>> GetFilmeByFiltros(CancellationToken cancellation);
-        Task<ResponseService> GetFilmeByAvaliacao(CancellationToken cancellation);
+        ResponseService<IEnumerable<Filme>> GetFilmeByFiltros(ObterTodosFilmesDto obterTodosFilmesDto);
+        ResponseService GetFilmeByAvaliacao();
     }
 }

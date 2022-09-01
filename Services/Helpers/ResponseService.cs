@@ -6,11 +6,11 @@ namespace Service.Helpers
     {
         public HttpStatusCode Status { get; set; }
         public bool Sucesso { get; set; }
-        public string Mensagem { get; set; }
+        public string? Mensagem { get; set; }
 
     }
     public class ResponseService<T> : ResponseService
     {
-        public T Value { get; set; }
+        public T? Value { get; set; }
     }
 }

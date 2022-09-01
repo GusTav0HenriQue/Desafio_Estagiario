@@ -20,7 +20,7 @@ namespace Service.Profiles
                 .ForMember(destMember => destMember.Papel, opt => opt.MapFrom(srcMenber => srcMenber.Papel.GetDescription())).ReverseMap();
 
             CreateMap<Elenco, ReadElencoDto>().ForMember(destMember => destMember.DataDeNascimento,
-                opt => opt.MapFrom(srcMember => srcMember.DataDeNascimento.ToShortTimeString()))
+                opt => opt.MapFrom(srcMember => srcMember.DataDeNascimento.ToShortDateString()))
                 .ForMember(destMember => destMember.Papel, opt => opt.MapFrom(srcMember => srcMember.Papel.GetDescription())).ReverseMap();
 
             CreateMap<Elenco, ElencoFilmeDto>().ReverseMap();

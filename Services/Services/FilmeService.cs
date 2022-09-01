@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using AutoMapper;
 using Dominio.Config;
 using Dominio.DTOs.ElencoDtos;
@@ -9,7 +10,7 @@ using Service.Helpers;
 using Service.Interfaces;
 using Service.Validator.Avaliacao;
 using Service.Validator.Filme;
-using Dominio.Enums;
+
 
 namespace Service.Services
 {
@@ -85,7 +86,7 @@ namespace Service.Services
             return GenereteServiceResponseSucess(mapperFilme);
         }
 
-        public async Task<ResponseService> GetFilmeByAvaliacao(CancellationToken cancellation)
+        public  ResponseService GetFilmeByAvaliacao()
         {
             var filmes = _fRepository.GetAll();
             var ordem = filmes.OrderBy(f => f.Titulo).ThenBy(f => f.AvaliacaoTotal).ToList();
@@ -93,14 +94,13 @@ namespace Service.Services
             return GenereteServiceResponseSucess(ordem);
         }
 
-        public async Task<ResponseService<IEnumerable<FilmeDto>>> GetFilmeByFiltros(CancellationToken cancellation)
+        public ResponseService<IEnumerable<Filme>> GetFilmeByFiltros(ObterTodosFilmesDto obterTodosFilmesDto)
         {
-            var filmes = _fRepository.GetFilmesFiltro();
-            if (filmes.Any())
-                return GenerateErroServiceResponse<IEnumerable<FilmeDto>>("Filmes não encontrados", HttpStatusCode.NotFound);
-            var mapperFilme = _mapper.Map<IEnumerable<FilmeDto>>(filmes);
-
-            return GenereteServiceResponseSucess(mapperFilme);
+            var filmes = _fRepository.GetFilmesFiltro(obterTodosFilmesDto);
+            if (!filmes.Any())
+                return GenerateErroServiceResponse<IEnumerable<Filme>>("Filmes não encontrados", HttpStatusCode.NotFound);
+           
+            return GenereteServiceResponseSucess(filmes);
         }
 
         public async Task<ResponseService<ReadDetailFilmeDto>> GetFilmesDetail(int id, CancellationToken cancellation)
@@ -125,6 +125,7 @@ namespace Service.Services
                 Sinopse = filme.Sinopse,
                 Genero = filme.Genero,
                 Avaliacao = Filmemedia,
+                Duracao = filme.Duracao,
                 Atores = _mapper.Map<List<ElencoDto>>(filme.Atores)
             };
             return GenereteServiceResponseSucess(filmeAtt);
@@ -149,8 +150,6 @@ namespace Service.Services
             await _aRepository.Add(entity, cancellationToken);
 
             await _fRepository.SaveChanges(cancellationToken);
-
-            await _aRepository.SaveChanges(cancellationToken);
 
             return GenereteServiceResponseSucess(entity);
         }

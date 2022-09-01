@@ -151,7 +151,7 @@ namespace Service.Services
 
             await _uRepository.SaveChanges(cancellation);
 
-            return GenereteServiceResponseSucess("Usuari atualiazado com sucesso");
+            return GenereteServiceResponseSucess("Usuario atualiazado com sucesso");
         }
     }
 }

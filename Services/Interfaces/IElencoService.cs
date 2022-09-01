@@ -8,5 +8,6 @@ namespace Service.Interfaces
         Task<ResponseService> CadastrarElenco(CadastrarElencoDto cadastrarElencoDto, CancellationToken cancellationToken);
         Task<ResponseService> UpdateElenco(int id,UpdateElencoDto updateElencoDto, CancellationToken cancellationToken);
         Task<ResponseService> Delete(int id, CancellationToken cancellationToken);
+        ResponseService<IQueryable<ReadElencoDto>> GetAllElenco();
     }
 }

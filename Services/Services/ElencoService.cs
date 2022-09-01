@@ -33,12 +33,11 @@ namespace Service.Services
                     Ativo = true,
                     Papel = ConverterEnum(cadastrarElencoDto.Papel)
                 }, cancellationToken);
+                await _eRepository.SaveChanges(cancellationToken);
                 return GenereteServiceResponseSucess("O Artista foi Cadastrado com sucesso.");
             }
-            await _eRepository.SaveChanges(cancellationToken);
 
             return GenereteErroServiceResponse("O Artista ja foi cadastrado.");
-
         }
 
         public async Task<ResponseService> Delete(int id, CancellationToken cancellationToken)
@@ -47,7 +46,7 @@ namespace Service.Services
                 return GenereteErroServiceResponse("O id não pode ser menor que zero.");
             var delete = await _eRepository.GetById(id, cancellationToken);
 
-            if (id == null)
+            if (delete == null)
                 return GenereteErroServiceResponse($"O artista com o id {id} não foi encontrado.");
             await _eRepository.Delete(delete, cancellationToken);
             return GenereteServiceResponseSucess("O Artista foi deletado com sucesso.");
@@ -56,7 +55,7 @@ namespace Service.Services
         public ResponseService<IQueryable<ReadElencoDto>> GetAllElenco()
         {
             var artista = _eRepository.GetAll();
-            if (artista.Any())
+            if (!artista.Any())
                 return GenerateErroServiceResponse<IQueryable<ReadElencoDto>>("Ainda não foi Cadastrado nenhum artista.");
             return GenereteServiceResponseSucess(_mapper.ProjectTo<ReadElencoDto>(artista));
         }
@@ -69,7 +68,10 @@ namespace Service.Services
             if (!RealizarValidacao(new UpdateElencoValidator(), updateElencoDto))
                 return GenereteErroServiceResponse(GetNotifcacao().First());
 
-            return GenereteServiceResponseSucess("Artista atualizado com sucesso.");
+            artista.AttElenco(artista);
+            await _eRepository.SaveChanges(cancellationToken);
+
+            return GenereteServiceResponseSucess(artista);
         }
 
     }
