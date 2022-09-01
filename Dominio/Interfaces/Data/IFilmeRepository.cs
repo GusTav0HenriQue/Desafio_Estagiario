@@ -1,16 +1,13 @@
-﻿using Dominio.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Dominio.DTOs.FilmesDtos;
+using Dominio.Entities;
+
 
 namespace Dominio.Interfaces.Data
 {
     public interface IFilmeRepository :IBaseRepository<Filme>
     {
         Task<Filme?> GetAllDetail(int id, CancellationToken cancellationToken);
-        IEnumerable<Filme> GetFilmesFiltro();
+        IEnumerable<Filme> GetFilmesFiltro(ObterTodosFilmesDto obterTodosFilmesDto);
         IEnumerable<Filme> GetAllFilmesComAtor();
         IEnumerable<Filme> GetFilmeByTitulo(string titulo);
         IEnumerable<Filme> GetFilmeByGenero(string genero);
