@@ -13,9 +13,10 @@ namespace Dominio.Entities
             Atores = new HashSet<Elenco>();
             Votos = new HashSet<Avaliacao>();
         }
-        public string Titulo { get; set; }
-        public string Sinopse { get; set; }
-        public string Genero { get; set; }
+        public string? Titulo { get; set; }
+        public string? Sinopse { get; set; }
+        public string? Genero { get; set; }
+        public string? Diretor { get; set; }
         public int Duracao { get; set; }
         public int AvaliacaoTotal { get; set; }
         public int UsuariosVotantes { get; set; }
@@ -29,7 +30,7 @@ namespace Dominio.Entities
             UsuariosVotantes++;
             AvaliacaoTotal += pontuacao;
         }
-        public void AttFilme(string titulo, string genero, string sinopse, int duracao)
+        public void AttFilme(string? titulo, string? genero, string? sinopse, int duracao)
         {
             Titulo = titulo;
             Genero = genero;
@@ -40,18 +41,22 @@ namespace Dominio.Entities
 
         public override bool Equals(object? obj)
         {
-            if (obj is Filme filme)
+            if (obj is not Filme)
             {
-                filme = (Filme)obj;
-                if(Titulo == filme.Titulo)
-                {
-                    return true;
-                }
-                else { return false; }
+                return Equals(obj);
             }
-            return base.Equals(obj);
+            var filme = (Filme)obj;
+            if (Titulo == filme.Titulo)
+            {
+                return true;
+            }
+            else { return false; }
         }
 
+        public override int GetHashCode()
+        {
+            throw new NotImplementedException();
+        }
     }
     
 }
