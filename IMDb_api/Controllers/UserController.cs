@@ -24,7 +24,7 @@ namespace IMDb_api.Controllers
         {
             var result = await _uservice.CreateUser(createUser,cancellation);
             if (result.Sucesso)
-                return Ok(result);
+                return Ok();
             return BadRequest(result.Mensagem);
         }
 
@@ -32,7 +32,6 @@ namespace IMDb_api.Controllers
         [HttpPost("CriarAdm")]
         [ProducesResponseType(typeof(void), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> CriarAdm(CreateUserDto createUser, CancellationToken cancellation) 
         {
             var result = await _uservice.CreateAdm(createUser, cancellation);
@@ -64,7 +63,7 @@ namespace IMDb_api.Controllers
             return BadRequest(result.Mensagem);
         }
 
-        [HttpDelete("EcluirUsuario")]
+        [HttpDelete("ExcluirUsuario")]
         [ProducesResponseType(typeof(void), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> ExcluirUsuario(int id, string email, CancellationToken cancellation)
@@ -79,7 +78,6 @@ namespace IMDb_api.Controllers
         [Authorize(Roles ="Administrador")]
         [ProducesResponseType(typeof(void), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> ExcluirAdm(int id, string email, CancellationToken cancellation)
         {
             var result = await _uservice.DeleteUser(id, email, cancellation);

@@ -1,8 +1,9 @@
-﻿using AutoMapper;
+﻿using System.Web.Http.OData;
+using System.Web.Http.OData.Query;
+using AutoMapper;
 using Dominio.DTOs.FilmesDtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.OData.Query;
 using Service.Interfaces;
 
 namespace IMDb_api.Controllers
@@ -66,7 +67,7 @@ namespace IMDb_api.Controllers
             var result = await _fService.RegistrarAvaliacao(avaliacao, cancellation);
 
             if (result.Sucesso)
-                return Ok(result);
+                return Ok();
             return BadRequest(result.Mensagem);
         }
 
@@ -98,21 +99,22 @@ namespace IMDb_api.Controllers
         [ProducesResponseType(typeof(void), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [EnableQuery(AllowedQueryOptions = AllowedQueryOptions.All)]
-        public async Task<IActionResult> GetFilmeByFiltros(CancellationToken cancellation)
+        public IActionResult GetFilmeByFiltros([FromQuery] ObterTodosFilmesDto obterTodosFilmesDto)
         {
-            var result = await _fService.GetFilmeByFiltros(cancellation);
+            var result = _fService.GetFilmeByFiltros(obterTodosFilmesDto);
 
             if (result.Sucesso)
-                return Ok(_mapper.Map<IEnumerable<FilmeDto>>(result.Value));
+                return Ok(_mapper.Map<IEnumerable<FilmeDto>>(result.Value.ToList()));
             return BadRequest(result.Mensagem);
 
         }
-        [HttpGet("PegarFilmeOrdenado")]
+
+        [HttpGet("PegarFilmeOrdenadoPorAvaliaçao")]
         [ProducesResponseType(typeof(void), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetFilmeByAvaliacao(CancellationToken cancellation)
+        public IActionResult GetFilmeByAvaliacao()
         {
-            var result = await _fService.GetFilmeByAvaliacao(cancellation);
+            var result = _fService.GetFilmeByAvaliacao();
 
             if (result.Sucesso)
                 return Ok(result);

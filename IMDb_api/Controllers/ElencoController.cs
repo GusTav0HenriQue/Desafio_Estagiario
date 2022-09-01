@@ -17,6 +17,7 @@ namespace IMDb_api.Controllers
             _eService = eService;
         }
         [HttpPost("Cadastrar")]
+        [Authorize(Roles = "Administrador")]
         [ProducesResponseType(typeof(void), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CadastrarElenco(CadastrarElencoDto cadastro, CancellationToken cancellation)
@@ -29,6 +30,7 @@ namespace IMDb_api.Controllers
         }
 
         [HttpPut("Atualizar")]
+        [Authorize(Roles = "Administrador")]
         [ProducesResponseType(typeof(void), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> AtualizarElenco(int id, UpdateElencoDto updateElenco, CancellationToken cancellation)
@@ -41,6 +43,7 @@ namespace IMDb_api.Controllers
         }
 
         [HttpDelete("Deletar")]
+        [Authorize(Roles = "Administrador")]
         [ProducesResponseType(typeof(void), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> DeletarElenco(int id, CancellationToken cancellation)
@@ -49,6 +52,17 @@ namespace IMDb_api.Controllers
 
             if (result.Sucesso)
                 return Ok(result);
+            return BadRequest(result.Mensagem);
+        }
+
+        [HttpGet("PegarTodos")]
+        [ProducesResponseType(typeof(void), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        public  IActionResult PegarTodos()
+        {
+            var result = _eService.GetAllElenco();
+            if (result.Sucesso)
+                return Ok();
             return BadRequest(result.Mensagem);
         }
     }

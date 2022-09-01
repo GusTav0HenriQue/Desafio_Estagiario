@@ -31,9 +31,9 @@ builder.Services.AddAutoMapper(typeof(UserProfile), typeof(FilmeProfile), typeof
 
 builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("DbConnection")));
 
-builder.Services.AddFluentValidation(s => { s.RegisterValidatorsFromAssemblyContaining<Program>(); s.DisableDataAnnotationsValidation = false; });
+builder.Services.AddFluentValidationAutoValidation();
 
-builder.Services.AddControllers().AddOData(opt => opt.AddRouteComponents("v1", GetEdmModel()).Filter().Select().Expand()); 
+builder.Services.AddControllers().AddOData(opt => opt.AddRouteComponents("v1", GetEdmModel()).Filter().Select().Expand());
 
 builder.Services.AddServices();
 
@@ -50,9 +50,9 @@ builder.Services.AddAuthentication(x =>
     x.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuerSigningKey = true,
-        IssuerSigningKey= new SymmetricSecurityKey(Encoding.ASCII.GetBytes(JWt_KEY)),
-        ValidateIssuer= false,
-        ValidateAudience= false
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(JWt_KEY)),
+        ValidateIssuer = false,
+        ValidateAudience = false
     };
 });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -69,9 +69,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
-
 app.UseAuthentication();
+
+app.UseAuthorization();
 
 app.MapControllers();
 
