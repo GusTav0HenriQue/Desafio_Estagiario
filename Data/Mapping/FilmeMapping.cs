@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Data.Mapping
 {
-    public class FilmeMapping : Microsoft.EntityFrameworkCore.IEntityTypeConfiguration<Filme>
+    public class FilmeMapping : IEntityTypeConfiguration<Filme>
     {
         public void Configure(EntityTypeBuilder<Filme> builder)
         {
