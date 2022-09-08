@@ -2,7 +2,6 @@
 using Dominio.Entities;
 using Dominio.Interfaces.Data;
 using Microsoft.EntityFrameworkCore;
-using System.Web.Http.OData.Query;
 
 namespace Data.Repositories
 {
@@ -21,17 +20,17 @@ namespace Data.Repositories
             return _dbSet.Include(f => f.Atores).AsQueryable().Where(f => f.Ativo);
         }
 
-        public IEnumerable<Filme> GetFilmeByGenero(string genero)
+        public IEnumerable<Filme> GetFilmesByGenero(string genero)
         {
-            return GetAll(f => f.Genero.ToLower() == genero.ToLower());
+            return GetAll(f => f.Genero!.ToLower() == genero.ToLower());
         }
 
         public IEnumerable<Filme> GetFilmeByTitulo(string titulo)
         {
-            return GetAll(f => f.Titulo.ToLower() == titulo.ToLower());
+            return GetAll(f => f.Titulo!.ToLower() == titulo.ToLower());
         }
 
-        public async Task<Filme?> GetFilmePorAtor(int id, CancellationToken cancellationToken)
+        public async Task<Filme?> GetFilmesbyAtor(int id, CancellationToken cancellationToken)
         {
             return await _dbSet.Include(f => f.Atores).FirstOrDefaultAsync(f => f.Id == id, cancellationToken);
         }
@@ -43,10 +42,10 @@ namespace Data.Repositories
             var filtros = new List<Func<Filme, bool>>();
 
             if (Diretor is not null)
-                filtros.Add(filme => filme.Diretor.Contains(Diretor));
+                filtros.Add(filme => filme.Diretor!.Contains(Diretor));
             
             if (Genero is not null)
-                filtros.Add(filme => filme.Genero.Contains(Genero));
+                filtros.Add(filme => filme.Genero!.Contains(Genero));
 
             if (Ator is not null)
                 filtros.Add(filme => filme.Atores.Any(a => a.Nome.Contains(Ator)));

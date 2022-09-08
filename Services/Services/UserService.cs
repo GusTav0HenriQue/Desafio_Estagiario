@@ -34,7 +34,7 @@ namespace Service.Services
                 return GenereteErroServiceResponse(GetNotifcacao().First());
 
             var userMail = await _uRepository.GetUserByEmail(createUser.Email, cancellation);
-            if(createUser.Email == userMail.Email)
+            if(createUser.Email == userMail!.Email)
             {
                 userMail.CargoDoUsuario = UserCargo.Administrador;
                 await _uRepository.SaveChanges(cancellation);
@@ -81,9 +81,12 @@ namespace Service.Services
 
         public async Task<ResponseService> DeleteUser(int id, string email, CancellationToken cancellation)
         {
+            
             var user = await _uRepository.GetById(id, cancellation);
+            if (VerificarId(id))
+                return GenereteErroServiceResponse("O id não pode ser negativo ou zero");
 
-            if (user == null)
+            if (user!.Ativo == false)
                 return GenereteErroServiceResponse("Usuario ja foi excluido");
             if (user.Email != email)
                 return GenereteErroServiceResponse("Email não encontrado , Por favor insira um email valido. ");
@@ -96,7 +99,7 @@ namespace Service.Services
 
         }
 
-        public  ResponseService<IEnumerable<ReadUserDto>> GetAllUsers(CancellationToken cancellation)
+        public  ResponseService<IEnumerable<ReadUserDto>> GetAllUsers()
         {
             var user =   _uRepository.GetAll();
             var map = _mapper.Map<IEnumerable<ReadUserDto>>(user);
@@ -107,12 +110,12 @@ namespace Service.Services
 
         public async Task<ResponseService<LoginOutPutUserDto>> Login(LoginUserDto login, CancellationToken cancellation)
         {
-            var userAth = await _uRepository.GetUserByEmail(login.Email, cancellation);
+            var userAth = await _uRepository.GetUserByEmail(login.Email!, cancellation);
 
             if (userAth == null)
                 return GenerateErroServiceResponse<LoginOutPutUserDto>("Erro ao fazer login, Esse usuario não existe.");
 
-            if (userAth != null && _cryptograph.VerifyPassword(login.Password, userAth.PassWord))
+            if (userAth != null && _cryptograph.VerifyPassword(login.Password!, userAth.PassWord))
             {
                 var createToken = await _token.GerarToken(userAth.Nome, userAth.Id, userAth.CargoDoUsuario.GetDescription());
 

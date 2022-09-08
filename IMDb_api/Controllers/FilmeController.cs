@@ -74,9 +74,9 @@ namespace IMDb_api.Controllers
         [HttpGet("PegarTodos")]
         [ProducesResponseType(typeof(void), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        public  IActionResult PegarTodos(CancellationToken cancellation)
+        public  IActionResult PegarTodos()
         {
-            var result = _fService.GetAllFilmes(cancellation);
+            var result = _fService.GetAllFilmes();
 
             if (result.Sucesso)
                 return Ok(result);

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Dominio.DTOs.FilmesDtos
+﻿namespace Dominio.DTOs.FilmesDtos
 {
     public class CreateFilmeDto
     {
@@ -13,7 +7,8 @@ namespace Dominio.DTOs.FilmesDtos
         public string Sinopse { get; set; }
         public string Genero { get; set; }
         public string DataDeLancamento { get; set; }
-        public List<ElencoFilmeDto> Elenco { get; set; }
+        public string Diretor { get; set; }
+        public List<ElencoFilmeDto> Elenco { get; set; } = new List<ElencoFilmeDto>();
     }
     public class ElencoFilmeDto { public int Id { get; set; } }
 }

@@ -10,8 +10,8 @@ namespace Dominio.Interfaces.Data
         IEnumerable<Filme> GetFilmesFiltro(ObterTodosFilmesDto obterTodosFilmesDto);
         IEnumerable<Filme> GetAllFilmesComAtor();
         IEnumerable<Filme> GetFilmeByTitulo(string titulo);
-        IEnumerable<Filme> GetFilmeByGenero(string genero);
+        IEnumerable<Filme> GetFilmesByGenero(string genero);
         IEnumerable<Filme> GetFilmesPagiados(ParametroFilme filmesParametros);
-        Task<Filme?> GetFilmePorAtor(int id, CancellationToken cancellationToken);
+        Task<Filme?> GetFilmesbyAtor(int id, CancellationToken cancellationToken);
     }
 }

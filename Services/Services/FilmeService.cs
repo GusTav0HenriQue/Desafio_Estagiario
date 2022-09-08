@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using AutoMapper;
 using Dominio.Config;
 using Dominio.DTOs.ElencoDtos;
@@ -66,17 +65,17 @@ namespace Service.Services
         {
             if (VerificarId(id))
                 return GenereteErroServiceResponse("O id precisa ser maior que 0.");
-            var filmedeletado = await _fRepository.GetById(id, cancellationToken);
+            var filmeTarget = await _fRepository.GetById(id, cancellationToken);
 
-            if (filmedeletado == null)
+            if (filmeTarget == null)
                 return GenereteErroServiceResponse("Esse filme em questao não existe.");
 
-            await _fRepository.Delete(filmedeletado, cancellationToken);
+            await _fRepository.Delete(filmeTarget, cancellationToken);
 
-            return GenereteServiceResponseSucess(filmedeletado);
+            return GenereteServiceResponseSucess(filmeTarget);
         }
 
-        public ResponseService<IEnumerable<ReadFilmeDto>> GetAllFilmes(CancellationToken cancellation)
+        public ResponseService<IEnumerable<ReadFilmeDto>> GetAllFilmes()
         {
             var filme = _fRepository.GetAllFilmesComAtor();
             if (!filme.Any())
@@ -108,7 +107,7 @@ namespace Service.Services
             if (!VerificarId(id))
                 GenerateErroServiceResponse<IEnumerable<ReadDetailFilmeDto>>("O id precisa ser maior que 0.");
 
-            var filme = await _fRepository.GetFilmePorAtor(id, cancellation);
+            var filme = await _fRepository.GetFilmesbyAtor(id, cancellation);
             var Filmemedia = 0;
 
             if (filme == null)

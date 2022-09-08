@@ -2,11 +2,6 @@
 using Dominio.Enums;
 using Dominio.Interfaces.Data;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Data.Repositories
 {
@@ -21,7 +16,7 @@ namespace Data.Repositories
 
         public async Task<User?> GetUserByEmail(string email, CancellationToken cancellationToken)
         {
-             return await _dbSet.Where(u => u.Email == email).AsNoTracking().FirstOrDefaultAsync(cancellationToken);
+             return await _dbSet.FirstOrDefaultAsync(u => u.Email == email, cancellationToken);
         }
 
         public IEnumerable<User> GetUserByOrder()
@@ -32,9 +27,7 @@ namespace Data.Repositories
         public async Task<User?> GetUserNaoAtivos(CancellationToken cancellationToken)
         {
             return await _dbSet.AsNoTracking()
-                               .Where(u => u.Ativo == false)
-                               .Where(u => u.CargoDoUsuario == UserCargo.Usuario)
-                               .FirstOrDefaultAsync(cancellationToken);
+                               .FirstOrDefaultAsync(u => u.Ativo == false && u.CargoDoUsuario == UserCargo.Usuario,cancellationToken);
         }
     }
 }

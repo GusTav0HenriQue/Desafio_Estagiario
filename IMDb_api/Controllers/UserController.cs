@@ -89,9 +89,9 @@ namespace IMDb_api.Controllers
         [HttpGet("PegarTodosUsuarios")]
         [ProducesResponseType(typeof(void), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        public  IActionResult PegarTodos(CancellationToken cancellation)
+        public  IActionResult PegarTodos()
         {
-            var result = _uservice.GetAllUsers(cancellation);
+            var result = _uservice.GetAllUsers();
             if (result.Sucesso)
                 return Ok(result);
             return BadRequest(result.Mensagem);

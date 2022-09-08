@@ -33,7 +33,7 @@ namespace Data.Repositories
 
         public  IQueryable<T> GetAll(Expression<Func<T, bool>> query)
         {
-            return _dbSet.Where(query).AsQueryable().Where(x => x.Ativo);
+            return _dbSet.Where(query).Where(x => x.Ativo);
         }
 
         public async Task<T?> GetById(int id, CancellationToken cancellationToken) => await _dbSet.FirstOrDefaultAsync(x => x.Id == id && x.Ativo, cancellationToken);
