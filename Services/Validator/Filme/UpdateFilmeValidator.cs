@@ -14,12 +14,10 @@ namespace Service.Validator.Filme
                                    .NotEmpty().WithMessage("A {PropertyName} não pode ser vazia!");
 
             RuleFor(f => f.Duracao).NotEmpty().WithMessage("A {PropertyName} não pode ser vazia!")
-                                   .LessThanOrEqualTo(0).WithMessage("A {PropertyName} tem que ser maior que 0!");
+                                   .GreaterThan(0).WithMessage("A {PropertyName} tem que ser maior que 0!");
 
             RuleFor(f => f.Genero).Length(4, 50).WithMessage("O {PropertyName} não pode ser menor que {MinLength} ou maior que {MaxLength}!")
                                   .NotEmpty().WithMessage("O {PropertyName} não pode ser vazio");
-
-            //RuleFor(f => f.Elenco).NotEmpty().WithMessage("A Lista de {PropertyName} não pode ser vazia!");
         }
     }
 }
