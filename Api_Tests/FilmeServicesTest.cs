@@ -18,7 +18,7 @@ namespace Api_Tests
         private readonly Mock<IAvaliacaoRepository> _aRepository = new Mock<IAvaliacaoRepository>();
         private readonly Mock<IElencoRepository> _eRepository = new Mock<IElencoRepository>();
         private readonly List<Filme> _context;
-        private readonly List<Elenco> _elencoContext;
+
 
         public FilmeServicesTest()
         {
@@ -61,21 +61,13 @@ namespace Api_Tests
                 }
             };
             _context = context;
-            var econtext = new List<Elenco>()
-            {
-                new Elenco
-                {
-                    Id = 1,
-                    Nome = "Ian McKellen",
-                    Ativo = true,
-                    Papel = ElencoPapel.Ator,
-                    DataDeNascimento = DateTime.Parse("1939/05/25")
-                }
-            };
-            _elencoContext = econtext;
 
-            _fRepository.Setup(f => f.GetById(It.IsAny<int>(), It.IsAny<CancellationToken>())).ReturnsAsync((int id, CancellationToken ct) => _context.FirstOrDefault(filme => filme.Id == id));
-            _fRepository.Setup(f => f.GetFilmeByTitulo(It.IsAny<string>())).Returns((string titulo) => _context.Where(filme => filme.Titulo == titulo));
+            _fRepository.Setup(f => f.GetById(It.IsAny<int>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync((int id, CancellationToken ct)
+                => _context.FirstOrDefault(filme => filme.Id == id));
+            _fRepository.Setup(f => f.GetFilmeByTitulo(It.IsAny<string>()))
+                .Returns((string titulo) 
+                => _context.Where(filme => filme.Titulo == titulo));
             _fRepository.Setup(f => f.Add(It.IsAny<Filme>(), It.IsAny<CancellationToken>())).ReturnsAsync((Filme filme, CancellationToken ct) =>
             {
                 _context.Add(filme);
@@ -178,5 +170,48 @@ namespace Api_Tests
             Assert.Equal(HttpStatusCode.OK, result.Status);
         }
 
+        [Theory]
+        [InlineData(56)]
+        public async Task UpdateFilmeNaoCadastrado(int id)
+        {
+            var request = new UpdateFilmeDto()
+            {
+                Titulo = "Senhor Dos Aneis III",
+                Genero = "Fantasia",
+                Sinopse = "Anel do poder muito poderoso mesmo pra caramba",
+                Duracao = 180,
+                Elenco = new List<AttElencoFilmeDto>(),
+                DataDeLancamento = "03/12/2006"
+
+            };
+            var updateService = new FilmeService(_mapper, _fRepository.Object, _uRepository.Object, _aRepository.Object, _eRepository.Object);
+            var result = await updateService.UpdateFilme(id, request, CancellationToken.None);
+
+            Assert.False(result.Sucesso);
+            Assert.Equal(HttpStatusCode.BadRequest, result.Status);
+            Assert.NotEmpty(result.Mensagem);
+        }
+
+        [Theory]
+        [InlineData(56)]
+        public async Task UpdateFilmeTituloNaoAtendeAsEspecificaçoes(int id)
+        {
+            var request = new UpdateFilmeDto()
+            {
+                Titulo = "S",
+                Genero = "Fantasia",
+                Sinopse = "Anel do poder muito poderoso mesmo pra caramba",
+                Duracao = 180,
+                Elenco = new List<AttElencoFilmeDto>(),
+                DataDeLancamento = "03/12/2006"
+
+            };
+            var updateService = new FilmeService(_mapper, _fRepository.Object, _uRepository.Object, _aRepository.Object, _eRepository.Object);
+            var result = await updateService.UpdateFilme(id, request, CancellationToken.None);
+
+            Assert.False(result.Sucesso);
+            Assert.Equal(HttpStatusCode.BadRequest, result.Status);
+            Assert.NotEmpty(result.Mensagem);
+        }
     }
 }

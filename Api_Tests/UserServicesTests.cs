@@ -57,8 +57,11 @@ namespace Api_Tests
                 }
             };
             _uRepository.Setup(u => u.GetUserByEmail(It.IsAny<string>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync((string email, CancellationToken ct) => _context!.FirstOrDefault(user => user.Email == email));
-            _uRepository.Setup(u => u.GetById(It.IsAny<int>(), It.IsAny<CancellationToken>())).ReturnsAsync((int id, CancellationToken ct) => _context!.FirstOrDefault(usuario => usuario.Id == id));
+                .ReturnsAsync((string email, CancellationToken ct)
+                => _context!.FirstOrDefault(user => user.Email == email));
+            _uRepository.Setup(u => u.GetById(It.IsAny<int>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync((int id, CancellationToken ct)
+                => _context!.FirstOrDefault(usuario => usuario.Id == id));
 
             _uRepository.Setup(u => u.Add(It.IsAny<User>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(
@@ -72,7 +75,7 @@ namespace Api_Tests
             _context = context;
 
             _token.Setup(t => t.GerarToken(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>()))
-                .ReturnsAsync((string username, int id, string cargo )=> $"Email deste usuario {_context.FirstOrDefault(c=>c.Id==id).Email}");
+                .ReturnsAsync((string username, int id, string cargo ) => $"Email deste usuario {_context.FirstOrDefault(c=>c.Id==id).Email}");
 
             var mapperConfig =new MapperConfiguration(conf =>
             {
