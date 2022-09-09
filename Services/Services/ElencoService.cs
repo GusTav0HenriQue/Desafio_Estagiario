@@ -24,6 +24,8 @@ namespace Service.Services
         {
             var artista = await _eRepository.GetElencoByName(cadastrarElencoDto.Nome, cancellationToken);
 
+            if (!RealizarValidacao(new CadastrarElencoValidator(), cadastrarElencoDto))
+                return GenereteErroServiceResponse(GetNotifcacao().First());
             if(artista == null)
             {
                 await _eRepository.Add(new Elenco
